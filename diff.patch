@@ -1,0 +1,39 @@
+diff --git a/hw/xbox/nv2a/s3tc.c b/hw/xbox/nv2a/s3tc.c
+index 5fd987a753..fd9863355d 100644
+--- a/hw/xbox/nv2a/s3tc.c
++++ b/hw/xbox/nv2a/s3tc.c
+@@ -22,7 +22,6 @@
+  * THE SOFTWARE.
+  */
+ 
+-#include "qemu/osdep.h"
+ #include "s3tc.h"
+ 
+ static inline void decode_bc1_colors(uint16_t c0,
+diff --git a/hw/xbox/nv2a/s3tc.h b/hw/xbox/nv2a/s3tc.h
+index d76d52fd4f..586c701345 100644
+--- a/hw/xbox/nv2a/s3tc.h
++++ b/hw/xbox/nv2a/s3tc.h
+@@ -25,7 +25,22 @@
+ #ifndef S3TC_H
+ #define S3TC_H
+ 
++#ifdef STANDALONE
++#include <stdint.h>
++#include <stdlib.h>
++#include <stdbool.h>
++#define MIN(X, Y) (((X) < (Y)) ? (X) : (Y))
++#define g_malloc malloc
++typedef int GLint;
++enum {
++GL_COMPRESSED_RGBA_S3TC_DXT1_EXT,
++GL_COMPRESSED_RGBA_S3TC_DXT3_EXT,
++GL_COMPRESSED_RGBA_S3TC_DXT5_EXT,
++};
++#else
++#include "qemu/osdep.h"
+ #include "gl/gloffscreen.h"
++#endif
+ 
+ uint8_t *decompress_3d_texture_data(GLint color_format,
+                                     const uint8_t *data,
