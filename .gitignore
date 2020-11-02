@@ -1,0 +1,8 @@
+*.bmp
+*.dds
+*.dxt1
+*.rgba
+decompress
+expected*
+decompressed*
+compressed
